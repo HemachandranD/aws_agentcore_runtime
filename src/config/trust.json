@@ -1,0 +1,34 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "delivery.logs.amazonaws.com",
+                    "rds.amazonaws.com",
+                    "dms.amazonaws.com",
+                    "transfer.amazonaws.com",
+                    "cloudformation.amazonaws.com",
+                    "cloud9.amazonaws.com",
+                    "lambda.amazonaws.com",
+                    "secretsmanager.amazonaws.com",
+                    "ecs-tasks.amazonaws.com",
+                    "redshift.amazonaws.com",
+                    "ec2.amazonaws.com",
+                    "bedrock-agentcore.amazonaws.com",
+                    "glue.amazonaws.com",
+                    "apigateway.amazonaws.com",
+                    "osis-pipelines.amazonaws.com",
+                    "cloudsearch.amazonaws.com",
+                    "ecs.amazonaws.com",
+                    "lakeformation.amazonaws.com",
+                    "logs.amazonaws.com",
+                    "events.amazonaws.com",
+                    "datapipeline.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
