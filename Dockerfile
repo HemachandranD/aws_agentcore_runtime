@@ -12,6 +12,9 @@ RUN uv sync --frozen --no-cache
 # Copy application code
 COPY app/ ./app/
 
+# Copy environment file
+COPY .env ./
+
 # Expose port
 EXPOSE 8080
 

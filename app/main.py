@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
 from datetime import datetime, timezone
-from agents import CrewAgent, StrandAgent
+from .agents import CrewAgent, StrandAgent
 
 app = FastAPI(title="AgentCore Server", version="1.0.0")
 
@@ -17,8 +17,7 @@ class InvocationResponse(BaseModel):
 
 @app.post("/invocations", response_model=InvocationResponse)
 async def invoke_agent(
-    request: InvocationRequest,
-    x_agent_type: Optional[str] = Header(default="strand", alias="X-Agent-Type")
+    request: InvocationRequest
 ):
     try:
         user_message = request.input.get("prompt", "")
@@ -28,8 +27,8 @@ async def invoke_agent(
                 detail="No prompt found in input. Please provide a 'prompt' key in the input."
             )
 
-        # Switch between agent types based on header
-        agent_type = x_agent_type.lower()
+        # Get agent type from input (default to "strand" if not provided)
+        agent_type = request.input.get("x_agent_framework", "strand").lower()
         
         if agent_type == "crewai":
             result = CrewAgent(user_message)
