@@ -17,9 +17,13 @@ def get_existing_runtime(runtime_name):
     try:
         # List all runtimes and find matching name
         response = client.list_agent_runtimes()
-        for runtime in response.get('agentRuntimeSummaries', []):
+        print (response)
+        for runtime in response.get('agentRuntimes', []):
             if runtime.get('agentRuntimeName') == runtime_name:
-                return runtime.get('agentRuntimeArn')
+                return {
+                    'arn': runtime.get('agentRuntimeArn'),
+                    'id': runtime.get('agentRuntimeId')
+                }
         return None
     except ClientError as e:
         print(f"Warning: Could not list runtimes: {e}")
@@ -53,30 +57,37 @@ def create_runtime():
         if error_code == 'ConflictException':
             print(f"⚠️  Runtime '{RUNTIME_NAME}' already exists. Try updating instead.")
             # Try to get the existing ARN
-            existing_arn = get_existing_runtime(RUNTIME_NAME)
-            if existing_arn:
-                return existing_arn
+            existing_runtime = get_existing_runtime(RUNTIME_NAME)
+            if existing_runtime:
+                return existing_runtime['arn']
         else:
             print(f"❌ Failed to create runtime: {e}")
         raise
 
 
-def update_runtime(runtime_arn):
+def update_runtime(runtime_info):
     """Update an existing agent runtime with new container image"""
     try:
         print(f"\n🔄 Updating Agent Runtime")
-        print(f"   ARN: {runtime_arn}")
+        print(f"   ARN: {runtime_info['arn']}")
+        print(f"   ID: {runtime_info['id']}")
         print(f"   New Container: {CONTAINER_URI}")
         
         response = client.update_agent_runtime(
-            agentRuntimeArn=runtime_arn,
-            containerImageUri=CONTAINER_URI,
-            description=f'Updated container image to latest version'
+            agentRuntimeId=runtime_info['id'],
+            agentRuntimeArtifact={
+                'containerConfiguration': {
+                    'containerUri': CONTAINER_URI
+                }
+            },
+            roleArn=ROLE_ARN,
+            networkConfiguration={"networkMode": "PUBLIC"},
+            description='Updated container image to latest version'
         )
         
         print(f"✅ Agent Runtime updated successfully!")
         print(f"   Status: {response['status']}")
-        return runtime_arn
+        return runtime_info['arn']
         
     except ClientError as e:
         print(f"❌ Failed to update runtime: {e}")
@@ -87,11 +98,11 @@ def deploy():
     """Main deployment logic: create or update runtime"""
     try:
         # Check if runtime already exists
-        existing_arn = get_existing_runtime(RUNTIME_NAME)
+        existing_runtime = get_existing_runtime(RUNTIME_NAME)
         
-        if existing_arn:
-            print(f"📦 Found existing runtime: {existing_arn}")
-            runtime_arn = update_runtime(existing_arn)
+        if existing_runtime:
+            print(f"📦 Found existing runtime: {existing_runtime['arn']}")
+            runtime_arn = update_runtime(existing_runtime)
         else:
             print(f"📦 No existing runtime found")
             runtime_arn = create_runtime()
