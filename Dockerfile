@@ -1,19 +1,19 @@
-# Use uv's ARM64 Python base image
-FROM --platform=linux/arm64 ghcr.io/astral-sh/uv:python3.11-bookworm-slim
+# Use uv's Python base image
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-WORKDIR /app
+WORKDIR /workspace
 
 # Copy uv files
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies (including strands-agents)
+# Install dependencies
 RUN uv sync --frozen --no-cache
 
-# Copy agent file
-COPY src/agent.py ./
+# Copy application code
+COPY app/ ./app/
 
 # Expose port
 EXPOSE 8080
 
 # Run application
-CMD ["uv", "run", "uvicorn", "agent:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

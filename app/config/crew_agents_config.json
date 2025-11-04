@@ -1,0 +1,26 @@
+{
+    "agents": {
+        "assistant": {
+            "role": "AI Assistant",
+            "goal": "Provide helpful, accurate, and comprehensive responses to user queries",
+            "backstory": "You are an intelligent AI assistant with expertise across various domains. You excel at understanding user needs and providing clear, actionable responses. You communicate in a professional yet friendly manner.",
+            "verbose": true,
+            "allow_delegation": false,
+            "llm": {
+                "model": "groq/qwen/qwen3-32b",
+                "temperature": 0.2
+            },
+            "tasks": [
+                {
+                    "name": "response_task",
+                    "description_template": "Process and respond to the following user request: {user_message}",
+                    "expected_output": "A comprehensive and helpful response to the user's query"
+                }
+            ],
+            "crew": {
+                "process": "sequential",
+                "verbose": true
+            }
+        }
+    }
+}
