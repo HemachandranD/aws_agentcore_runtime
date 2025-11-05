@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Agent Core Runtime - Folder Structure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tree {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.8;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .folder {
+            color: #4a90e2;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .folder:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .file {
+            color: #2d3748;
+        }
+
+        .file.python {
+            color: #3776ab;
+        }
+
+        .file.json {
+            color: #e67e22;
+        }
+
+        .file.docker {
+            color: #0db7ed;
+        }
+
+        .file.config {
+            color: #27ae60;
+        }
+
+        .file.notebook {
+            color: #f39c12;
+        }
+
+        .branch {
+            color: #95a5a6;
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-radius: 10px;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .legend h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📁 AWS Agent Core Runtime</h1>
+        <p class="subtitle">Project Folder Structure Visualization</p>
+
+        <div class="tree">
+            <div><span class="folder">📦 aws_agentcore_runtime/</span></div>
+            <div><span class="branch">│</span></div>
+            <div><span class="branch">├──</span> <span class="file python">🐍 __init__.py</span></div>
+            <div><span class="branch">├──</span> <span class="file">📄 README.md</span></div>
+            <div><span class="branch">├──</span> <span class="file docker">🐳 Dockerfile</span></div>
+            <div><span class="branch">├──</span> <span class="file config">⚙️ pyproject.toml</span></div>
+            <div><span class="branch">├──</span> <span class="file">🔒 uv.lock</span></div>
+            <div><span class="branch">│</span></div>
+            <div><span class="branch">├──</span> <span class="folder">📂 app/</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file python">🐍 __init__.py</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file python">🚀 main.py</span></div>
+            <div><span class="branch">│ │</span></div>
+            <div><span class="branch">│ ├──</span> <span class="folder">📂 agents/</span></div>
+            <div><span class="branch">│ │ ├──</span> <span class="file python">🐍 __init__.py</span></div>
+            <div><span class="branch">│ │ ├──</span> <span class="file python">🤖 crew_agent.py</span></div>
+            <div><span class="branch">│ │ └──</span> <span class="file python">🤖 strand_agent.py</span></div>
+            <div><span class="branch">│ │</span></div>
+            <div><span class="branch">│ └──</span> <span class="folder">📂 config/</span></div>
+            <div><span class="branch">│ └──</span> <span class="file json">⚙️ crew_agents_config.json</span></div>
+            <div><span class="branch">│</span></div>
+            <div><span class="branch">├──</span> <span class="folder">📂 aws/</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file python">🐍 __init__.py</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file python">🚀 deploy.py</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file python">▶️ execute.py</span></div>
+            <div><span class="branch">│ ├──</span> <span class="file json">📋 policy.json</span></div>
+            <div><span class="branch">│ └──</span> <span class="file json">📋 trust.json</span></div>
+            <div><span class="branch">│</span></div>
+            <div><span class="branch">└──</span> <span class="folder">📂 docker/</span></div>
+            <div><span class="branch">| └──</span> <span class="file notebook">📓 build.ipynb</span></div>
+        </div>
+
+        <div class="legend">
+            <h3>📊 Project Structure Overview</h3>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #4a90e2;"></span>
+                <span><strong>Folders</strong></span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #3776ab;"></span>
+                <span><strong>Python Files</strong></span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e67e22;"></span>
+                <span><strong>JSON Config</strong></span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #f39c12;"></span>
+                <span><strong>Jupyter Notebook</strong></span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #0db7ed;"></span>
+                <span><strong>Docker Files</strong></span>
+            </div>
+
+            <p style="margin-top: 20px; color: #555;">
+                <strong>📦 Main Components:</strong><br>
+                • <strong>app/</strong> - Core application with agent implementations<br>
+                • <strong>aws/</strong> - AWS deployment and execution scripts<br>
+                • <strong>docker/</strong> - Docker build configurations<br>
+                • Root configuration files for project setup
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
